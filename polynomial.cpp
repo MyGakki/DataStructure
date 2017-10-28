@@ -60,6 +60,16 @@ slink *plusPoly(slink *polyA, slink *polyB) {
 	//		delete polyB;
 	return polyA;
 }
+	
+slink *getOppsite(slink *poly) {
+	slink *head = poly;
+	slink *a = head->next;
+	while(a!=NULL) {
+		a->coef = -a->coef;
+		a=a->next;
+	}
+	return head;
+}
 
 void displayList(slink *head) {
 	slink *a = head->next;
@@ -73,17 +83,21 @@ void displayList(slink *head) {
 
 int main() {
 	slink *polyA, *polyB, *result;
-	int lenA, lenB;
+	int lenA, lenB,flag;
 	printf("输入第一个多项式的长度");
 	scanf("%d", &lenA);
 	polyA = createPoly(lenA);
 	displayList(polyA);
+	printf("1.加  2.减");
+	scanf("%d",&flag);
 	printf("输入第二个多项式的长度");
 	scanf("%d", &lenB);
 	polyB = createPoly(lenB);
 	displayList(polyB);
-	result = plusPoly(polyA, polyB);
+	if(flag==1)
+		result = plusPoly(polyA, polyB);
+	else
+		result=plusPoly(polyA,getOppsite(polyB));
 	displayList(result);
-	system("pause");
 	return 0;
 }
